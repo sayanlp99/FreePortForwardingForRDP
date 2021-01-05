@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Port Forwarder</title>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
+      <div class="container">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand mr-auto" href="#">&nbsp;&nbsp;Port Forwarder</a>
+          <div class="collapse navbar-collapse" id="Navbar">
+          </div>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <div class="container">
+      <div class="card" style="width: 300px;">
+        <div class="card-body text-center">
+            <h5 class="card-title">Desktop</h5>
+            <p class="card-title"><span id="public_url1"></span></p>
+            <p class="card-text"><span id="timestamp1"></span></p>
+            <button id="cp_btn1" class="btn btn-primary stretched-link">Copy</button>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+      <div class="card" style="width: 300px;">
+        <div class="card-body text-center">
+            <h5 class="card-title">Dell Inpiron 5370</h5>
+            <p class="card-title"><span id="public_url2"></span></p>
+            <p class="card-text"><span id="timestamp2"></span></p>
+            <button id="cp_btn2" class="btn btn-primary stretched-link">Copy</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      fetch("forward_info1.json").then(response=>response.json()).then(data=>{
+        console.log(data.public_url)
+        document.getElementById("public_url1").textContent=data.public_url;
+        document.getElementById("timestamp1").textContent=data.timestamp;
+      });
+      document.getElementById("cp_btn1").addEventListener("click", copy_password);
+      function copy_password() {
+          var copyText = document.getElementById("public_url1");
+          var textArea = document.createElement("textarea");
+          textArea.value = copyText.textContent;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand("Copy");
+          textArea.remove();
+      }
+      
+      fetch("forward_info2.json").then(response=>response.json()).then(data=>{
+        console.log(data.public_url)
+        document.getElementById("public_url2").textContent=data.public_url;
+        document.getElementById("timestamp2").textContent=data.timestamp;
+      });
+      document.getElementById("cp_btn2").addEventListener("click", copy_password);
+      function copy_password() {
+          var copyText = document.getElementById("public_url2");
+          var textArea = document.createElement("textarea");
+          textArea.value = copyText.textContent;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand("Copy");
+          textArea.remove();
+      }
+    </script>
+  </body>
+</html>
